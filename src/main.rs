@@ -19,6 +19,15 @@ fn main() {
     }
 }
 
+/// Handle a connection.
+///
+/// The connection will be read and the request will be parsed.
+///
+/// The response will be written back to the connection.
+///
+/// # Panics
+///
+/// The `handle_connection` function will panic if the request is not a GET request.
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&stream);
     let request_line = buf_reader.lines()

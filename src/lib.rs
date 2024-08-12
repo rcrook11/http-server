@@ -10,6 +10,13 @@ use std::{
     }
 };
 
+/// Simple thread pool.
+///
+/// The thread pool will create a number of threads and execute jobs concurrently.
+///
+/// The thread pool will panic if the size is zero.
+///
+/// The thread pool will panic if the threads encounter an error while shutting down.
 pub struct ThreadPool {
     workers: Vec<Worker>,
     sender: Option<mpsc::Sender<Job>>
@@ -75,6 +82,13 @@ impl Drop for ThreadPool {
     }
 }
 
+/// A worker in the ThreadPool.
+///
+/// Each worker is associated with a thread that will execute jobs.
+///
+/// The worker will continue to execute jobs until it receives a termination signal.
+///
+/// The worker will panic if it encounters an error while receiving a job.
 struct Worker {
     id: usize,
     thread: Option<thread::JoinHandle<()>>,
